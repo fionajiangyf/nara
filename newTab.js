@@ -275,6 +275,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const moodContainer = document.getElementById("mood-container");
+    const moodOptions = document.querySelectorAll(".mood-option");
+    
+    // Load previously selected mood (if any)
+    chrome.storage.local.get("mood", (data) => {
+      const storedMood = data.mood;
+      if (storedMood) {
+        const selected = document.querySelector(`.mood-option[data-mood="${storedMood}"]`);
+        if (selected) selected.classList.add("selected");
+      } else {
+        // First-time user, set a default mood
+        const defaultMood = document.querySelector(".mood-option");
+        if (defaultMood) {
+          defaultMood.classList.add("selected");
+          chrome.storage.local.set({ mood: defaultMood.dataset.mood }, () => {
+            console.log("Default mood set:", defaultMood.dataset.mood);
+          });
+        }
+      }
+    });
+    
+    // When a user clicks a mood emoji
+    moodOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        moodOptions.forEach((o) => o.classList.remove("selected"));
+  
+        option.classList.add("selected");
+    
+        chrome.storage.local.set({ mood: option.dataset.mood }, () => {
+          console.log("Mood saved:", option.dataset.mood);
+        });
+      });
+    });
+
   // Updated hardcoded tasks with new categories and random selection
   const taskPool = {
     daily: [
@@ -419,6 +453,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const category = event.target.dataset.category;
       hideHoverCircles();
 
+      document.getElementById("mood-container").classList.add("hidden");
+
+
       if (category === "others") {
         // Create five empty tasks for the "Others" category
         const tasks = Array(5)
@@ -466,6 +503,8 @@ document.addEventListener("DOMContentLoaded", () => {
       categoriesContainer.classList.add("hidden");
       hideHoverCircles();
       document.getElementById("welcome-message").classList.add("hidden");
+      
+
     }
   });
 
@@ -500,6 +539,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Reset everything when "Yes" is clicked
   resetYesButton.addEventListener("click", () => {
+    document.getElementById("mood-container").classList.remove("hidden");
+
     // Clear the state in chrome.storage.local
     chrome.storage.local.set({ state: null }, () => {
       console.log("State reset to initial state.");
@@ -563,6 +604,11 @@ document.addEventListener("DOMContentLoaded", () => {
       hoverListeners.push(checkHover, handleClick);
       circle.classList.remove("hidden");
     });
+
+    
+    
+
+
 
     // Hide the reset modal
     resetModal.classList.add("hidden");

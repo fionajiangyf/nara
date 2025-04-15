@@ -490,6 +490,61 @@ input[type="checkbox"]:checked+.task-text {
     }
 
 
+    #mood-container {
+        position: fixed;
+        top: 300px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 24px;
+        padding: 16px 32px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        font-family: 'DM Sans', sans-serif;
+        z-index: 100;
+        text-align: center;
+        max-width: 400px;
+      }
+      
+      #mood-container p {
+        margin: 0;
+        font-size: 1.25rem;
+        color: #2c3e50;
+        font-weight: 500;
+      }
+      
+      #mood-options {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 12px;
+      }
+      
+      .mood-option {
+        font-size: 2rem;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 12px;
+        transition: all 0.25s ease;
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+      
+      .mood-option:hover {
+        background: rgba(255, 255, 255, 0.8);
+        transform: scale(1.15);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      
+      .mood-option.selected {
+        background: #0c9623;
+        color: white;
+        border: 2px solid #0a7a1d;
+        box-shadow: 0 4px 10px rgba(12, 150, 35, 0.3);
+
+
     .speech-bubble {
         background: #fff;
         border: 2px solid #333;
@@ -529,5 +584,6 @@ input[type="checkbox"]:checked+.task-text {
       .fade-out {
         transition: opacity 0.8s ease;
         opacity: 0;
+
       }
       

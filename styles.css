@@ -489,6 +489,7 @@ input[type="checkbox"]:checked+.task-text {
     animation: welcomeFadeIn 1s ease-out forwards;
     }
 
+
     #mood-container {
         position: fixed;
         top: 300px;
@@ -542,5 +543,47 @@ input[type="checkbox"]:checked+.task-text {
         color: white;
         border: 2px solid #0a7a1d;
         box-shadow: 0 4px 10px rgba(12, 150, 35, 0.3);
+
+
+    .speech-bubble {
+        background: #fff;
+        border: 2px solid #333;
+        border-radius: 10px;
+        padding: 10px 15px;
+        font-size: 1rem;
+        max-width: 200px;
+        text-align: center;
+        box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+        position: absolute;
+        animation: popIn 0.3s ease-out;
+        pointer-events: none;
+      }
+      
+      .speech-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 10px 10px 0;
+        border-style: solid;
+        border-color: #fff transparent transparent transparent;
+      }
+      
+      @keyframes popIn {
+        0% {
+          transform: translate(-50%, 10px) scale(0.8);
+          opacity: 0;
+        }
+        100% {
+          transform: translate(-50%, 0) scale(1);
+          opacity: 1;
+        }
+      }
+      
+      .fade-out {
+        transition: opacity 0.8s ease;
+        opacity: 0;
+
       }
       

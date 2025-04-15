@@ -275,6 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+
   const moodContainer = document.getElementById("mood-container");
     const moodOptions = document.querySelectorAll(".mood-option");
     
@@ -308,6 +309,57 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
     });
+
+  const encouragementMessages = [
+    "Great job!",
+    "You’re making progress!",
+    "Keep going!",
+    "Proud of you!",
+    "One step at a time!",
+    "You got this!",
+    "Keep it up!",
+    "Amazing work!",
+  ];
+
+  const speechBubblePositions = {
+    daily: { top: 450, left: 1120 },
+    home: { top: 580, left: 1270 },
+    pet: { top: 580, left: 1250 },
+    friends: { top: 640, left: 1400 },
+    mind: { top: 600, left: 1350 }
+  };
+  
+  
+  function showSpeechBubble(category) {
+    const position = speechBubblePositions[category];
+    if (!position) return;
+
+    const area = deerAreas.find((a) => a.category === category);
+    if (!area) return;
+  
+    const existingBubble = document.querySelector(".speech-bubble");
+    if (existingBubble) existingBubble.remove();
+  
+    const bubble = document.createElement("div");
+    bubble.className = "speech-bubble";
+    bubble.textContent =
+      encouragementMessages[
+        Math.floor(Math.random() * encouragementMessages.length)
+      ];
+  
+    bubble.style.position = "fixed";
+    bubble.style.top = `${position.top}px`;
+    bubble.style.left = `${position.left}px`;
+    bubble.style.transform = "translateX(-50%)";
+    bubble.style.zIndex = "9999";
+    document.body.appendChild(bubble);
+  
+    setTimeout(() => {
+      bubble.classList.add("fade-out");
+      setTimeout(() => bubble.remove(), 800);
+    }, 1500);
+  }
+  
 
   // Updated hardcoded tasks with new categories and random selection
   const taskPool = {
@@ -715,6 +767,10 @@ document.addEventListener("DOMContentLoaded", () => {
       checkbox.addEventListener("change", () => {
         const originalIndex = tasks.indexOf(task);
         tasks[originalIndex].completed = checkbox.checked;
+
+        if (checkbox.checked) {
+          showSpeechBubble(category);
+        }        
 
         if (tasks[originalIndex].completed) {
           const deleteButton = taskItem.querySelector(".delete-task");

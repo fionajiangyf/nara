@@ -544,7 +544,7 @@ input[type="checkbox"]:checked+.task-text {
         border: 2px solid #0a7a1d;
         box-shadow: 0 4px 10px rgba(12, 150, 35, 0.3);
 
-
+      }
     .speech-bubble {
         background: #fff;
         border: 2px solid #333;

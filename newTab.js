@@ -487,6 +487,7 @@ document.addEventListener("DOMContentLoaded", () => {
           categoriesContainer.classList.add("hidden");
           hideHoverCircles(); // Hide hover circles when categories are hidden
           document.getElementById("welcome-message").classList.add("hidden");
+          document.getElementById("mood-container").classList.add("hidden");
         }
         changeBackgroundWithSlide(
           backgroundSets[selectedCategory][backgroundIndex]
